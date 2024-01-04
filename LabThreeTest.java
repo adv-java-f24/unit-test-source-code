@@ -82,7 +82,9 @@ public class LabThreeTest {
         lab.run("test");
 
         if (!outContent.toString().equals("input: test\n")) {
-            fail("\t****** The class must output the string \"input: test\" "
+            fail("\t****** Expected: input:test \n"
+                + "\t****** Actual: " + outContent + "\n"
+                + "\t****** The class must output the string \"input: test\" "
                 + "The string \"input: \" is hard coded and \"test\" is data that was passed "
                 + "to the class from the command line.\n");
         }
@@ -93,7 +95,9 @@ public class LabThreeTest {
         LabThree.main(new String[0]);
 
         if (!outContent.toString().equals("Please enter one argument on the command line\n")) {
-            fail("\t****** The class must output this string if there are no arguments on the command:\n"
+            fail("\t****** Expected: Please enter one argument on the command line \n"
+                + "\t****** Actual: " + outContent + "\n"
+                + "\t****** The class must output this string if there are no arguments on the command:\n"
                 + "\t****** Please enter one argument on the command line");
         }
     }
@@ -104,7 +108,9 @@ public class LabThreeTest {
         LabThree.main(testArray);
 
         if (!outContent.toString().equals("input: test\n")) {
-            fail("\t****** The class must output the string \"input: test.\" "
+            fail("\t****** Expected: input:test \n"
+                + "\t****** Actual: " + outContent + "\n"
+                + "\t****** The class must output the string \"input: test\" "
                 + "The string \"input: \" is hard coded and \"test\" is data that was passed "
                 + "to the class from the command line.\n");
         }
@@ -116,12 +122,12 @@ public class LabThreeTest {
         LabThree.main(testArray);
 
         if (!outContent.toString().equals("Please enter one argument on the command line\n")) {
-            fail("\t****** The class must output this string if there is more than one argument on the command:\n"
-                + "\t****** Please enter one argument on the command line");
+            fail("\t****** Expected: Please enter one argument on the command line \n"
+                    + "\t****** Actual: " + outContent
+                    + "\n\t****** The class must output this string if there is more than one argument on the command:\n"
+                    + "\t****** Please enter one argument on the command line");
         }
         assertEquals("Please enter one argument on the command line\n", outContent.toString());
     }
 
 }
-
-
