@@ -33,16 +33,16 @@ public class FileSummaryAnalyzerOutputTest {
         outputFileContents = new ArrayList<String>();
 
         // The following commented out code is for projects 2-4.
-        //properties = new Properties();
-        //properties.setProperty("application.name", "TestApplicationName");
-        //properties.setProperty("author", "TestName");
-        //properties.setProperty("output.dir", "output/");
-        //properties.setProperty("author.email.address", "eknapp@matcmadison.edu");
-        //properties.setProperty("output.file.summary", "testing_summary_output.txt");
+        properties = new Properties();
+        properties.setProperty("application.name", "TestApplicationName");
+        properties.setProperty("author", "TestName");
+        properties.setProperty("output.directory", "output/");
+        properties.setProperty("author.email.address", "eknapp@matcmadison.edu");
+        properties.setProperty("output.file.summary", "testing_summary_output.txt");
 
-        testOutputFilePath = "output/testing_summary_output";
+        testOutputFilePath = properties.getProperty("output.directory") + properties.getProperty("output.file.summary");
 
-        report = new FileSummaryAnalyzer();
+        report = new FileSummaryAnalyzer(properties);
         report.processToken("one");
         report.processToken("one");
         report.processToken("two");
@@ -54,9 +54,8 @@ public class FileSummaryAnalyzerOutputTest {
         report.processToken("seven");
         report.processToken("eight");
 
-        report.generateOutputFile(inputFilePath, testOutputFilePath);
+        report.generateOutputFile(inputFilePath);
 
-        //testOutputFilePath = properties.getProperty("output.dir") + properties.getProperty("output.file.summary");
         testOutput = new BufferedReader(new FileReader(testOutputFilePath));
 
         while (testOutput.ready()) {
@@ -83,7 +82,7 @@ public class FileSummaryAnalyzerOutputTest {
 
     @Test
     public void testGenerateOutputFileExists() throws NoSuchMethodException {
-        Method method = FileSummaryAnalyzer.class.getMethod("generateOutputFile", String.class, String.class);
+        Method method = FileSummaryAnalyzer.class.getMethod("generateOutputFile", String.class);
 
         if (method == null) {
             fail("\t****** The FileSummaryAnalyzer class must have a 'generateOutputFile()' method.");
@@ -107,38 +106,38 @@ public class FileSummaryAnalyzerOutputTest {
     }
 
 
-    //@Test
-    //public void testApplicationNameFromProperties() {
-    //
-    //    String reportLineApplicationName = outputFileContents.get(0);
-    //
-    //    if (reportLineApplicationName.indexOf(properties.getProperty("application.name")) == -1) {
-    //        fail("\nApplication Name must come from the properties file: \""
-    //                + reportLineApplicationName + "\"\n");
-    //    }
-    //}
+    @Test
+    public void testApplicationNameFromProperties() {
+
+        String reportLineApplicationName = outputFileContents.get(0);
+
+        if (reportLineApplicationName.indexOf(properties.getProperty("application.name")) == -1) {
+            fail("\nApplication Name must come from the properties file: \""
+                    + reportLineApplicationName + "\"\n");
+        }
+    }
 
 
-    //@Test
-    //public void testAuthorFromProperties() {
-    //
-    //    String reportLineAuthor = outputFileContents.get(1);
-    //
-    //    if (reportLineAuthor.indexOf(properties.getProperty("author")) == -1) {
-    //        fail("\nAuthor must come from the properties file: \"" + reportLineAuthor + "\"\n");
-    //    }
-    //}
+    @Test
+    public void testAuthorFromProperties() {
+
+        String reportLineAuthor = outputFileContents.get(1);
+
+        if (reportLineAuthor.indexOf(properties.getProperty("author")) == -1) {
+            fail("\nAuthor must come from the properties file: \"" + reportLineAuthor + "\"\n");
+        }
+    }
 
 
-    //@Test
-    //public void testEmailFromProperties() {
-    //
-    //    String reportLineEmail = outputFileContents.get(2);
-    //
-    //    if (reportLineEmail.indexOf(properties.getProperty("author.email.address")) == -1) {
-    //        fail("\nEmail must come from the properties file: \"" + reportLineEmail + "\"\n");
-    //    }
-    //}
+    @Test
+    public void testEmailFromProperties() {
+
+        String reportLineEmail = outputFileContents.get(2);
+
+        if (reportLineEmail.indexOf(properties.getProperty("author.email.address")) == -1) {
+            fail("\nEmail must come from the properties file: \"" + reportLineEmail + "\"\n");
+        }
+    }
 
     @Test
     public void testOututFileLineCount() {

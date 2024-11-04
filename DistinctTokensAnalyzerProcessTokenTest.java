@@ -23,11 +23,11 @@ public class DistinctTokensAnalyzerProcessTokenTest {
     public static void initialSetUp() {
 
         // The following commented-out lines are for projects 2-4
-        //properties = new Properties();
-        //properties.setProperty("output.dir", "output/");
-        //properties.setProperty("output.file.unique", "test_unique_tokens.txt");
+        properties = new Properties();
+        properties.setProperty("output.dir", "output/");
+        properties.setProperty("output.file.unique", "test_unique_tokens.txt");
 
-        analyzer = new DistinctTokensAnalyzer();
+        analyzer = new DistinctTokensAnalyzer(properties);
     }
 
     @AfterClass
@@ -87,19 +87,19 @@ public class DistinctTokensAnalyzerProcessTokenTest {
     }
 
     // The following method is for projects 2-4
-    //@Test
-    //public void constructorOneParameterExistsTest() throws java.lang.NoSuchMethodException {
-    //    Constructor constructor = DistinctTokensAnalyzer.class.getConstructor(Properties.class);
-    //    assertNotNull(constructor);
-    //}
+    @Test
+    public void constructorOneParameterExistsTest() throws java.lang.NoSuchMethodException {
+        Constructor constructor = DistinctTokensAnalyzer.class.getConstructor(Properties.class);
+        assertNotNull(constructor);
+    }
 
     @Test
     public void setMethodForTokensListNotCreatedTest() {
 
         Method method = null;
         try {
-            method = DistinctTokensAnalyzer.class.getMethod("setUniqueTokensList", Set.class);
-            fail("\t****** The DistinctTokensAnalyzer class must not have a 'setUniqueTokensList' method.\n");
+            method = DistinctTokensAnalyzer.class.getMethod("setDistinctTokens", Set.class);
+            fail("\t****** The DistinctTokensAnalyzer class must not have a 'setDistinctTokens' method.\n");
         } catch (java.lang.NoSuchMethodException nsme) {
             //no op
         }
@@ -118,8 +118,8 @@ public class DistinctTokensAnalyzerProcessTokenTest {
             }
         }
 
-        if (instanceVariableCount != 1) {
-            fail("\t****** The DistinctTokensAnalyzer class must have only one instance variable.\n");
+        if (instanceVariableCount != 2) {
+            fail("\t****** The DistinctTokensAnalyzer class must have two instance variable.\n");
         }
     }
 

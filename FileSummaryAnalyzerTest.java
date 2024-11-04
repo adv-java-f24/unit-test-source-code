@@ -92,8 +92,8 @@ public class FileSummaryAnalyzerTest {
             }
         }
 
-        if (instanceVariableCount != 1) {
-            fail("\t****** The FileSummaryAnalyzer class must have only one instance variable.\n");
+        if (instanceVariableCount != 2) {
+            fail("\t****** The FileSummaryAnalyzer class must have two instance variables.\n");
         }
     }
 
